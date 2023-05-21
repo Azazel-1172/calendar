@@ -10,3 +10,19 @@
 * {
   box-sizing: border-box;
 }
+
+.todo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  z-index: 9999;
+  display: block;
+
+  .todo-text {
+    text-align: center;
+  }
+}
