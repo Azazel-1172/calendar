@@ -1,0 +1,12 @@
+.title {
+  display: flex;
+  flex-direction: row;
+  margin-left: 1rem;
+}
+.title div {
+  padding: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+}/*# sourceMappingURL=style.css.map */
