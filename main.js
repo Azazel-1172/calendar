@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
           Swal.fire({
             title: "活動名稱： " + info.event.title,
             html:
-              `<div class="content"><p>開始時間： ${new Date(
+              `<div class="content"><p>開始時間<img width="24" height="24" src="https://img.icons8.com/dusk/64/alarm-clock--v1.png" alt="alarm-clock--v1"/>： ${new Date(
                 info.event.start
               ).getFullYear()}年` +
               `${(new Date(info.event.start).getMonth() + 1)
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
               new Date(info.event.start).getMinutes() +
               "分" +
               `</p></div>` +
-              `<div class="content"><p>結束時間： ${new Date(
+              `<div class="content"><p>結束時間<img width="24" height="24" src="https://img.icons8.com/dusk/64/stopwatch.png" alt="stopwatch"/>： ${new Date(
                 info.event.end
               ).getFullYear()}年` +
               `${(new Date(info.event.end).getMonth() + 1)
@@ -213,8 +213,8 @@ document.addEventListener("DOMContentLoaded", function () {
               new Date(info.event.end).getMinutes() +
               "分" +
               `</p></div>` +
-              `<div class="content"><p>活動地點： ${info.event._def.extendedProps.location}</p></div>` +
-              `<div class="content">其他資訊： <a href="${info.event.url}">Links</a></div>`,
+              `<div class="content"><p>活動地點<img width="24" height="24" src="https://img.icons8.com/arcade/64/000000/marker.png" alt="marker"/>： ${info.event._def.extendedProps.location}</p></div>` +
+              `<div class="content">相關連結<img width="24" height="24" src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/external-link-user-interface-wanicon-lineal-color-wanicon.png" alt="external-link-user-interface-wanicon-lineal-color-wanicon"/>： <a href="${info.event.url}">Links</a></div>`,
           });
           console.log(info.event.url);
         },
