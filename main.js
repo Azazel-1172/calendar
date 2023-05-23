@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (data.table.rows[i].c[7] === null) {
             link[i] = "azazel-1172.github.io/calendar/404page.html";
           } else {
-            link[i] = data.table.rows[i].c[7].v;
+            link[i] = "https://" + data.table.rows[i].c[7].v;
           }
         }
 
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
               "分" +
               `</p></div>` +
               `<div class="content"><p>活動地點： ${info.event._def.extendedProps.location}</p></div>` +
-              `<div class="content">其他資訊： <a href="https://${info.event.url}">Links</a></div>`,
+              `<div class="content">其他資訊： <a href="${info.event.url}">Links</a></div>`,
           });
         },
       });
