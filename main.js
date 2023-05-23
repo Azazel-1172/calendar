@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (let i = 0; i < data.table.rows.length; i++) {
           if (data.table.rows[i].c[7] === null) {
-            link[i] = "https://azazel-1172.github.io/calendar/404page";
+            link[i] = "https://azazel-1172.github.io/calendar/404page.html";
           } else {
             link[i] = data.table.rows[i].c[7].v;
           }
