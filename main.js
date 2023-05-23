@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (let i = 0; i < data.table.rows.length; i++) {
           if (data.table.rows[i].c[7] === null) {
-            link[i] = "google.com";
+            link[i] = "404page";
           } else {
             link[i] = data.table.rows[i].c[7].v;
           }
