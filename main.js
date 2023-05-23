@@ -5,10 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var events = [];
     var startTimeString, endTimeString;
     var startTime = [];
-    var month;
-    var date;
+    var start_month;
+    var end_month;
+    var start_date;
+    var end_date;
     var endTime = [];
-    // console.log(data.table.cols[0]);
+    var link = [];
+
     if (data.table.cols[0].label == "") {
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: "dayGridMonth",
@@ -100,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
             end_hour = data.table.rows[i].c[8].v.slice(16, 17);
             endTimeString =
               "0" +
-              start_hour +
+              end_hour +
               ":" +
               data.table.rows[i].c[8].f.slice(5, 7) +
               ":" +
@@ -109,40 +112,60 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
 
-        month = Number(data.table.rows[i].c[4].f.split("/")[1]);
-        date = Number(data.table.rows[i].c[4].f.split("/")[2]);
+        start_month = Number(data.table.rows[i].c[4].f.split("/")[1]);
+        start_date = Number(data.table.rows[i].c[4].f.split("/")[2]);
+        end_month = Number(data.table.rows[i].c[9].f.split("/")[1]);
+        end_date = Number(data.table.rows[i].c[9].f.split("/")[2]);
 
-        if (month < 10) {
-          month = "0" + JSON.stringify(month);
+        if (start_month < 10) {
+          start_month = "0" + JSON.stringify(start_month);
         }
-        if (date < 10) {
-          date = "0" + JSON.stringify(date);
+        if (start_date < 10) {
+          start_date = "0" + JSON.stringify(start_date);
+        }
+        if (end_month < 10) {
+          end_month = "0" + JSON.stringify(end_month);
+        }
+        if (end_date < 10) {
+          end_date = "0" + JSON.stringify(end_date);
         }
 
         startTime[i] =
           data.table.rows[i].c[4].f.split("/")[0] +
           "-" +
-          month +
+          start_month +
           "-" +
-          date +
+          start_date +
           "T" +
           startTimeString;
         // console.log(startTime);
         endTime[i] =
           data.table.rows[i].c[4].f.split("/")[0] +
           "-" +
-          month +
+          end_month +
           "-" +
-          date +
+          end_date +
           "T" +
           endTimeString;
         // console.log(endTime);
+
+        for (let i = 0; i < data.table.rows.length; i++) {
+          if (data.table.rows[i].c[7] === null) {
+            link[i] = "google.com";
+          } else {
+            link[i] = data.table.rows[i].c[7].v;
+          }
+        }
+
         events.push({
           title: data.table.rows[i].c[1].v,
           start: startTime[i],
           end: endTime[i],
+          url: link[i],
+          location: data.table.rows[i].c[6].v,
         });
       }
+
       // console.log(events);
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: "dayGridMonth",
@@ -155,41 +178,44 @@ document.addEventListener("DOMContentLoaded", function () {
         events: events,
 
         eventClick: function (info) {
-          swal(
-            "活動名稱: " +
-              info.event.title +
-              "\n" +
-              "開始時間: " +
-              new Date(info.event.start).getFullYear() +
-              "年" +
-              (new Date(info.event.start).getMonth() + 1)
+          info.jsEvent.preventDefault();
+
+          Swal.fire({
+            title: "活動名稱： " + info.event.title,
+            html:
+              `<div class="content"><p>開始時間： ${new Date(
+                info.event.start
+              ).getFullYear()}年` +
+              `${(new Date(info.event.start).getMonth() + 1)
                 .toString()
-                .padStart(2, "0") +
-              "月" +
-              new Date(info.event.start).getDate().toString().padStart(2, "0") +
-              "日" +
+                .padStart(2, "0")}月` +
+              `${new Date(info.event.start)
+                .getDate()
+                .toString()
+                .padStart(2, "0")}日` +
               new Date(info.event.start).getHours() +
               "時" +
               new Date(info.event.start).getMinutes() +
               "分" +
-              "\n" +
-              "結束時間: " +
-              new Date(info.event.end).getFullYear() +
-              "年" +
-              (new Date(info.event.end).getMonth() + 1)
+              `</p></div>` +
+              `<div class="content"><p>結束時間： ${new Date(
+                info.event.end
+              ).getFullYear()}年` +
+              `${(new Date(info.event.end).getMonth() + 1)
                 .toString()
-                .padStart(2, "0") +
-              "月" +
-              new Date(info.event.end).getDate().toString().padStart(2, "0") +
-              "日" +
+                .padStart(2, "0")}月` +
+              `${new Date(info.event.end)
+                .getDate()
+                .toString()
+                .padStart(2, "0")}日` +
               new Date(info.event.end).getHours() +
               "時" +
               new Date(info.event.end).getMinutes() +
               "分" +
-              "\n"
-          );
-
-          // console.log(title);
+              `</p></div>` +
+              `<div class="content"><p>活動地點： ${info.event._def.extendedProps.location}</p></div>` +
+              `<div class="content">其他資訊： <a href="https://${info.event.url}">Links</a></div>`,
+          });
         },
       });
 
